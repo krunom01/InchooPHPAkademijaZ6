@@ -10,7 +10,7 @@ ini_set('display_errors', 1);
 $includePaths = implode(PATH_SEPARATOR, array(
     BP . 'app/model',
     BP . 'app/model/entity',
-    BP . 'app/controller',
+    BP . 'app/controller'
 ));
 
 //  var_dump($includePaths);

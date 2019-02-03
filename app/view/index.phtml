@@ -1,13 +1,17 @@
-<form method="post" action="<?php echo App::config('url') ?>Index/newPost">
+
+<form method="post" action="<?php echo App::config('url') ?>Index/newPost" enctype='multipart/form-data'>
 
     <div class="form-group">
         <label for="content">What's on your mind?</label>
         <input id="content" name="content">
+        <label for="image">Upload picture</label>
+        <input type="file" id="image" name="image">
     </div>
 
-    <button type="submit" class="btn btn-primary">Save</button>
+    <button type="submit" name="submit" class="btn btn-primary">Save</button>
 
 </form>
+
 
 
 <?php foreach ($posts as $post): ?>
@@ -24,3 +28,4 @@
             ?>
     </p>
 <?php endforeach; ?>
+<img src="public/images/test.jpg">

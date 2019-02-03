@@ -4,11 +4,14 @@ class Post
     private $id;
     private $content;
     private $cr_date;  //dodavanje cr_date kako bi u listi dobio podatke iz base
-    public function __construct($id, $content,$cr_date)
+    private $image;
+
+    public function __construct($id, $content,$cr_date, $image)
     {
         $this->setId($id);
         $this->setContent($content);
         $this->setDate($cr_date);
+        $this->setImage($image);
     }
     public function __set($name, $value)
     {
@@ -33,10 +36,10 @@ class Post
     {
         $list = [];
         $db = Db::connect();
-        $statement = $db->prepare("select * from post as d order by d.cr_date DESC"); //zadnji dodan ide na prvo mjesto
+        $statement = $db->prepare("select * from post as d order by d.cr_date DESC"); //zadnji ide na prvo mjesto
         $statement->execute();
         foreach ($statement->fetchAll() as $post) {
-            $list[] = new Post($post->id, $post->content, $post->cr_date);
+            $list[] = new Post($post->id, $post->content, $post->cr_date, $post->image);
         }
         return $list;
     }
@@ -48,6 +51,6 @@ class Post
         $statement->bindValue('id', $id);
         $statement->execute();
         $post = $statement->fetch();
-        return new Post($post->id, $post->content);
+        return new Post($post->id, $post->content, $post->cr_date, $post->image);
     }
 }

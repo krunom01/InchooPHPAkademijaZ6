@@ -28,12 +28,16 @@ class IndexController
         if ($data === false) {
             header('Location: ' . App::config('url'));
         } else {
+
             $connection = Db::connect();
-            $sql = 'INSERT INTO post (content) VALUES (:content)';
+            $data['image'] = $_FILES["image"]["name"];
+            $sql = 'INSERT INTO post (content, image) VALUES (:content, :image)';
             $stmt = $connection->prepare($sql);
             $stmt->bindValue('content', $data['content']);
+            $stmt->bindValue('image', $data['image']);
             $stmt->execute();
             header('Location: ' . App::config('url'));
+
         }
     }
 
@@ -44,6 +48,7 @@ class IndexController
     private function _validate($data)
     {
         $required = ['content'];
+
 
         //validate required keys
         foreach ($required as $key) {
