@@ -12,8 +12,15 @@
 
 <?php foreach ($posts as $post): ?>
     <p>
+        Post:
         <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
-            <?= htmlspecialchars($post->getContent()) ?>
+
+            <?php echo htmlspecialchars($post->getContent()); ?>
         </a>
+        Created at:
+        <?php
+        $date = new DateTime($post->getDate());
+        echo $date->format('d.m.Y.  H:i');
+            ?>
     </p>
 <?php endforeach; ?>

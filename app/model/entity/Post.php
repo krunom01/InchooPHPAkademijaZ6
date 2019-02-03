@@ -1,27 +1,23 @@
 <?php
-
 class Post
 {
     private $id;
-
     private $content;
-
-    public function __construct($id, $content)
+    private $cr_date;  //dodavanje cr_date kako bi u listi dobio podatke iz base
+    public function __construct($id, $content,$cr_date)
     {
         $this->setId($id);
         $this->setContent($content);
+        $this->setDate($cr_date);
     }
-
     public function __set($name, $value)
     {
         $this->$name = $value;
     }
-
     public function __get($name)
     {
         return isset($this->$name) ? $this->$name : null;
     }
-
     public function __call($name, $arguments)
     {
         $function = substr($name, 0, 3);
@@ -31,22 +27,19 @@ class Post
         } else if ($function === 'get') {
             return $this->__get(strtolower(substr($name, 3)));
         }
-
         return $this;
     }
-
     public static function all()
     {
         $list = [];
         $db = Db::connect();
-        $statement = $db->prepare("select * from post");
+        $statement = $db->prepare("select * from post as d order by d.cr_date DESC"); //zadnji dodan ide na prvo mjesto
         $statement->execute();
         foreach ($statement->fetchAll() as $post) {
-            $list[] = new Post($post->id, $post->content);
+            $list[] = new Post($post->id, $post->content, $post->cr_date);
         }
         return $list;
     }
-
     public static function find($id)
     {
         $id = intval($id);
