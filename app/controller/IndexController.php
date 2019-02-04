@@ -54,6 +54,20 @@ class IndexController
         }
     }
     // end new post
+    //delete post
+    public function deletePost($id){
+
+
+
+            $connection = Db::connect();
+            $sql = 'DELETE FROM post where id= :id';
+            $stmt = $connection->prepare($sql);
+            $stmt->bindValue('id', intval($id));
+            $stmt->execute();
+            header('Location: ' . App::config('url'));
+
+    }
+    //end delete post
     public function newComment($id_post)
     {
         $data = $this->_validate($_POST);
@@ -72,7 +86,6 @@ class IndexController
 
         }
     }
-
 
     /**
      * @param $data

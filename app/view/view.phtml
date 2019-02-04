@@ -1,23 +1,37 @@
 <h2>
     POST:
+
     <?= htmlspecialchars($post->getContent()) ?></h2>
+
     CREATED AT:
-    <?= htmlspecialchars($post->getDate()). "<br>" ?></p>
+
+    <?= htmlspecialchars($post->getDate()) . "<br>" ?></p>
+
     <?php
-    if($post->getImage() != '') {
-    echo "Img: <br>" .
-    "<img src=../../" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
+    if ($post->getImage() != '') {
+        echo "Img: <br>" . "<img src=../../" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
     } else {
-      echo  "ovaj post nema sliku =(";
+        echo "ovaj post nema sliku =( <br>";
+    }
+    $i = 0;
+    foreach ($comment as $com) {
+        $i++;
+        if ($i === 1) {
+            echo "<h3>Komentari:</h3><br>";
+        }
+        echo $com->getContent() . "<br>";
+    }
+    if ($i === 0) {
+        echo "ovaj post nema komentara.";
     }
     ?>
 
+<form method="post" action="<?php echo App::config('url') ?>Index/deletePost/<?php echo $post->getId() ?>">
+
+    <div class="form-group">
+        <button type="submit" name="delete" class="btn btn-primary">Obrisi post</button>
+    </div>
 
 
-<h3>Comments</h3>
 
-<?php
-foreach ($comment as $com) {
-    echo $com->getContent(). "<br>";
-}
-?>
+</form>
