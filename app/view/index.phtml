@@ -9,15 +9,15 @@
         <input type="file" id="image" name="image">
     </div>
 
-    <button type="submit" name="submit" class="btn btn-primary">Save</button>
+    <button type="submit" name="submit" class="btn btn-primary">Add new post</button>
 
 </form>
 
 
 
 <?php foreach ($posts as $post): ?>
+    <!-- Post values -->
     <p>
-        <!-- Post value -->
         Post:
         <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
             <?php echo htmlspecialchars($post->getContent()); ?>
@@ -33,8 +33,21 @@
             echo "Img: <br>" .
                 "<img src=" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
         }
+
         ?>
     </p>
+    <!-- end post values -->
+    <form method="post" action="<?php echo App::config('url') ?>Index/newComment/<?php echo $post->getId() ?>">
+
+        <div class="form-group">
+            <label for="content">add new comment for post</label>
+            <input id="content" name="content">
+            <button type="submit" name="submit" class="btn btn-primary">Comment</button>
+        </div>
+
+
+
+    </form>
 <?php endforeach; ?>
 
 

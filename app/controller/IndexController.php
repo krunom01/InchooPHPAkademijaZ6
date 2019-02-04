@@ -21,7 +21,7 @@ class IndexController
             "post" => Post::find($id)
         ]);
     }
-
+    //new post
     public function newPost()
     {
         $data = $this->_validate($_POST);
@@ -40,7 +40,6 @@ class IndexController
                     $data['image'] = $_FILES['image']['name'];
                 }
             }
-
             $connection = Db::connect();
             $sql = 'INSERT INTO post (content, image) VALUES (:content, :image)';
             $stmt = $connection->prepare($sql);
@@ -51,6 +50,26 @@ class IndexController
 
         }
     }
+    // end new post
+    public function newComment($id_post)
+    {
+        $data = $this->_validate($_POST);
+
+        if ($data === false) {
+            header('Location: ' . App::config('url'));
+        } else {
+
+            $connection = Db::connect();
+            $sql = 'INSERT INTO comment (content,id_post) VALUES (:content, :id_post)';
+            $stmt = $connection->prepare($sql);
+            $stmt->bindValue('content', $data['content']);
+            $stmt->bindValue('id_post', intval($id_post));
+            $stmt->execute();
+            header('Location: ' . App::config('url'));
+
+        }
+    }
+
 
     /**
      * @param $data
