@@ -66,6 +66,7 @@ class IndexController
             $stmt->execute();
             header('Location: ' . App::config('url'));
 
+
     }
     //end delete post
     public function newComment($id_post)

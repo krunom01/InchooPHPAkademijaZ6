@@ -29,7 +29,8 @@
 <form method="post" action="<?php echo App::config('url') ?>Index/deletePost/<?php echo $post->getId() ?>">
 
     <div class="form-group">
-        <button type="submit" name="delete" class="btn btn-primary">Obrisi post</button>
+        <button type="submit" name="delete" class="btn btn-primary"
+                onclick="return confirm('Jeste si sigurni da zelite obrisati ovaj post?');">Obrisi post</button>
     </div>
 
 
