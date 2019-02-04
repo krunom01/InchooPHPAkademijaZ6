@@ -1,10 +1,16 @@
-<p>
+<h2>
     POST:
-    <?= htmlspecialchars($post->getContent()) ?></p>
+    <?= htmlspecialchars($post->getContent()) ?></h2>
     CREATED AT:
     <?= htmlspecialchars($post->getDate()). "<br>" ?></p>
-    IMG:
-    <img src="<?= '../../'.htmlspecialchars($post->getImage()); ?>" height="100px;" width="100px;">
+    <?php
+    if($post->getImage() != '') {
+    echo "Img: <br>" .
+    "<img src=../../" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
+    } else {
+      echo  "ovaj post nema sliku =(";
+    }
+    ?>
 
 
 
