@@ -3,7 +3,8 @@
     <?= htmlspecialchars($post->getContent()) ?></p>
     CREATED AT:
     <?= htmlspecialchars($post->getDate()). "<br>" ?></p>
-    <img src="<?= htmlspecialchars($post->getImage()); ?>" height="100px;" width="100px;">
+    IMG:
+    <img src="<?= '../../'.htmlspecialchars($post->getImage()); ?>" height="100px;" width="100px;">
 
 
 
