@@ -20,7 +20,8 @@ class IndexController
         $view = new View();
 
         $view->render('view', [
-            "post" => Post::find($id)
+            "post" => Post::find($id),
+            "comment" => Comment::find($id)
         ]);
     }
     //new post

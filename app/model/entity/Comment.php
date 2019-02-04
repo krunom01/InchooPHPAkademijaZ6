@@ -53,13 +53,17 @@ class Comment {
     }
     public static function find($id)
     {
+        $commentList = [];
         $id = intval($id);
         $db = Db::connect();
-        $statement = $db->prepare("select * from comment where id = :id");
+        $statement = $db->prepare("select * from comment where id_post = :id");
         $statement->bindValue('id', $id);
         $statement->execute();
-        $comment = $statement->fetch();
-        return new Comment($comment->id, $comment->content, $comment->cr_date, $comment->id_post);
+        foreach ($statement->fetchAll() as $comment) {
+            $commentList[] = new Comment($comment->id, $comment->content, $comment->cr_date, $comment->id_post);
+        }
+        return $commentList;
+
     }
 
 
