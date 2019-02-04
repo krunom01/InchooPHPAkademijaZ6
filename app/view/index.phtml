@@ -33,6 +33,19 @@
             echo "Img: <br>" .
                 "<img src=" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
         }
+        //comments
+        $i = 0;
+        foreach ($comments as $comment){
+            if($post->getId() === $comment->getIdPost()){
+                $i = $i + 1;
+
+            }
+        }
+        echo $i;
+
+
+
+
 
         ?>
     </p>
@@ -49,7 +62,7 @@
 
     </form>
 <?php endforeach; ?>
+<?php
 
-
-
+?>
 

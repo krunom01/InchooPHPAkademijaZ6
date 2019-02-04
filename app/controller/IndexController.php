@@ -7,9 +7,11 @@ class IndexController
     {
         $view = new View();
         $posts = Post::all();
+        $comments = Comment::all();
 
         $view->render('index', [
-            "posts" => $posts
+            "posts" => $posts,
+            "comments" => $comments
         ]);
     }
 

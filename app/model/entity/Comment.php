@@ -10,13 +10,15 @@ class Comment {
     private $id;
     private $content;
     private $cr_date;
+    private $id_post;
 
 
-    public function __construct($id, $content,$cr_date)
+    public function __construct($id, $content, $cr_date, $id_post)
     {
         $this->setId($id);
         $this->setContent($content);
         $this->setDate($cr_date);
+        $this->setIdPost($id_post);
 
     }
     public function __set($name, $value)
@@ -42,10 +44,10 @@ class Comment {
     {
         $commentList = [];
         $db = Db::connect();
-        $statement = $db->prepare("select * from post as d order by d.cr_date DESC"); //zadnji ide na prvo mjesto
+        $statement = $db->prepare("select * from comment as d order by d.cr_date DESC"); //zadnji ide na prvo mjesto
         $statement->execute();
         foreach ($statement->fetchAll() as $comment) {
-            $list[] = new Comment($post->id, $post->content, $post->cr_date);
+            $commentList[] = new Comment($comment->id, $comment->content, $comment->cr_date, $comment->id_post);
         }
         return $commentList;
     }
@@ -56,8 +58,8 @@ class Comment {
         $statement = $db->prepare("select * from comment where id = :id");
         $statement->bindValue('id', $id);
         $statement->execute();
-        $post = $statement->fetch();
-        return new Comment($post->id, $post->content, $post->cr_date);
+        $comment = $statement->fetch();
+        return new Comment($comment->id, $comment->content, $comment->cr_date, $comment->id_post);
     }
 
 
