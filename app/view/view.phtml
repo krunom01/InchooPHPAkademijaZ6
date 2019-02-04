@@ -2,7 +2,9 @@
     POST:
     <?= htmlspecialchars($post->getContent()) ?></p>
     CREATED AT:
-<?= htmlspecialchars($post->getDate()) ?></p>
+    <?= htmlspecialchars($post->getDate()). "<br>" ?></p>
+    <img src="<?= htmlspecialchars($post->getImage()); ?>" height="100px;" width="100px;">
+
 
 
 <h3>Comments</h3>

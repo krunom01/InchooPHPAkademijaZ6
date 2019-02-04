@@ -1,5 +1,6 @@
 <?php
-
+error_reporting(E_ALL);
+ini_set('display_errors',1);
 class IndexController
 {
     public function index()
@@ -29,12 +30,22 @@ class IndexController
             header('Location: ' . App::config('url'));
         } else {
 
+            if ($_FILES['image']['type'] != NULL){
+                $dir = 'public/images/'; //save img to dir
+                if ($_FILES['image']['type'] != 'image/jpeg'){ // if file type not jps
+                    echo 'file is not jpg!';
+                    exit();
+                }
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $dir.$_FILES['image']['name'])){
+                    $data['image'] = $_FILES['image']['name'];
+                }
+            }
+
             $connection = Db::connect();
-            $data['image'] = $_FILES["image"]["name"];
             $sql = 'INSERT INTO post (content, image) VALUES (:content, :image)';
             $stmt = $connection->prepare($sql);
             $stmt->bindValue('content', $data['content']);
-            $stmt->bindValue('image', $data['image']);
+            $stmt->bindValue('image', $dir.$data['image']);
             $stmt->execute();
             header('Location: ' . App::config('url'));
 
@@ -63,4 +74,7 @@ class IndexController
         }
         return $data;
     }
+
+
 }
+;

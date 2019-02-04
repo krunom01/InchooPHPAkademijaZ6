@@ -1,4 +1,5 @@
 
+
 <form method="post" action="<?php echo App::config('url') ?>Index/newPost" enctype='multipart/form-data'>
 
     <div class="form-group">
@@ -18,14 +19,19 @@
     <p>
         Post:
         <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
-
             <?php echo htmlspecialchars($post->getContent()); ?>
         </a>
         Created at:
         <?php
         $date = new DateTime($post->getDate());
-        echo $date->format('d.m.Y.  H:i');
-            ?>
+        echo $date->format('d.m.Y.  H:i') . "<br>";
+        ?>
+        Img:
+        <img src="<?php echo htmlspecialchars($post->getImage()); ?>" height="100px;" width="100px;">
+
     </p>
 <?php endforeach; ?>
-<img src="public/images/test.jpg">
+
+
+
+
