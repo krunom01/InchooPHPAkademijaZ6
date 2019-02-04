@@ -44,7 +44,7 @@ class Comment {
     {
         $commentList = [];
         $db = Db::connect();
-        $statement = $db->prepare("select * from comment as d order by d.cr_date DESC"); //zadnji ide na prvo mjesto
+        $statement = $db->prepare("select * from comment"); //zadnji ide na prvo mjesto
         $statement->execute();
         foreach ($statement->fetchAll() as $comment) {
             $commentList[] = new Comment($comment->id, $comment->content, $comment->cr_date, $comment->id_post);
@@ -56,7 +56,7 @@ class Comment {
         $commentList = [];
         $id = intval($id);
         $db = Db::connect();
-        $statement = $db->prepare("select * from comment where id_post = :id");
+        $statement = $db->prepare("select * from comment as d where id_post = :id order by d.cr_date DESC");
         $statement->bindValue('id', $id);
         $statement->execute();
         foreach ($statement->fetchAll() as $comment) {
