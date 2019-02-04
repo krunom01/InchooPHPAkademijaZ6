@@ -38,11 +38,13 @@
         foreach ($comments as $comment){
             if($post->getId() === $comment->getIdPost()){
                 $i = $i + 1;
-
             }
         }
-        echo $i;
-
+        if($i === 0){
+            echo "there are no comments for this post.";
+        } else {
+            echo "number of comments: " . $i;
+        }
 
 
 

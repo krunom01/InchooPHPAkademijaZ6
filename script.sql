@@ -14,7 +14,7 @@ id int not null primary key auto_increment,
 content text not null,
 cr_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 id_post int,
-foreign key (id_post) references post(id)
+foreign key (id_post) references post(id) ON DELETE CASCADE
 );
 
 
