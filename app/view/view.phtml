@@ -1,15 +1,15 @@
 <h2>
-    POST:
+    Post:
 
     <?= htmlspecialchars($post->getContent()) ?></h2>
 
-    CREATED AT:
+    Vrijeme:
 
     <?= htmlspecialchars($post->getDate()) . "<br>" ?></p>
 
     <?php
     if ($post->getImage() != '') {
-        echo "Img: <br>" . "<img src=../../" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
+        echo "<img src=../../" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
     } else {
         echo "ovaj post nema sliku =( <br>";
     }
