@@ -1,70 +1,75 @@
 
-
-<form method="post" action="<?php echo App::config('url') ?>Index/newPost" enctype='multipart/form-data'>
-
-    <div class="form-group">
-        <label for="content">What's on your mind?</label>
-        <input id="content" name="content">
-        <label for="image">Upload picture</label>
-        <input type="file" id="image" name="image">
-    </div>
-
-    <button type="submit" name="submit" class="btn btn-primary">Add new post</button>
-
-</form>
-
-
-
-<?php foreach ($posts as $post): ?>
-    <!-- Post values -->
-    <p>
-        Post:
-        <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
-            <?php echo htmlspecialchars($post->getContent()); ?>
-        </a>
-
-        Created at:
-        <?php
-        //date value
-        $date = new DateTime($post->getDate());
-        echo $date->format('d.m.Y.  H:i') . "<br>";
-        //img value if exists
-        if($post->getImage() != '') {
-            echo "Img: <br>" .
-                "<img src=" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";
-        }
-        //comments
-        $i = 0;
-        foreach ($comments as $comment){
-            if($post->getId() === $comment->getIdPost()){
-                $i = $i + 1;
-            }
-        }
-        if($i === 0){
-            echo "there are no comments for this post.";
-        } else {
-            echo "number of comments: " . $i;
-        }
-
-
-
-
-        ?>
-    </p>
-    <!-- end post values -->
-    <form method="post" action="<?php echo App::config('url') ?>Index/newComment/<?php echo $post->getId() ?>">
-
-        <div class="form-group">
-            <label for="content">add new comment</label>
-            <input id="content" name="content">
-            <button type="submit" name="submit" class="btn btn-primary">Comment</button>
+<div class="grid-container">
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <form method="post" action="<?php echo App::config('url') ?>Index/newPost" enctype='multipart/form-data'>
+                <div class="grid-container">
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <label for="content">Sto mislis? objavi post!</label>
+                                <input id="content" name="content" placeholder="sadrzaj posta">
+                        </div>
+                        <div class="medium-6 cell">
+                            <label for="image">Dodaj sliku</label>
+                            <input type="file" id="image" name="image">
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="button" value="objavi">
+            </form>
         </div>
 
+    </div>
+    <div class="grid-x grid-padding-x">
+        <div class="large-6 cell">
+            <h2>postovi i komentari IPA</h2>
+        </div>
 
+    </div>
 
-    </form>
-<?php endforeach; ?>
-<?php
+    <div class="grid-x grid-padding-x">
+        <div class="large-8 medium-8 cell">
+            <h5>Postovi:</h5>
+            <?php foreach ($posts as $post): ?>
+            <div class="card" style="width: 300px;">
+                <div class="card-divider">
+                    <a href="<?php echo App::config('url') ?>Index/view/<?= $post->getId() ?> ">
+                        <?php echo htmlspecialchars($post->getContent()); ?>
+                    </a>
+                </div>
+                <?php
+                if($post->getImage() != '') {
+                    echo "<img src=" . htmlspecialchars($post->getImage()) . " height=100px; width=100px;>";}
+                ?>
+                <div class="card-section">
 
-?>
+                    <?php
+                        $date = new DateTime($post->getDate());
+                        echo "<p>Vrijeme dodavanja posta: </p>" . $date->format('d.m.Y.  H:i') . "<br>";
+
+                    $i = 0;
+                    foreach ($comments as $comment){
+                        if($post->getId() === $comment->getIdPost()){
+                            $i = $i + 1;
+                        }
+                    }
+                    if($i === 0){
+                        echo "nema komentara za ovaj post";
+                    } else {
+                        echo "broj komentara na postu: " . $i;
+                    }
+                    ?>
+                    <form method="post" action="<?php echo App::config('url') ?>Index/newComment/<?php echo $post->getId() ?>">
+                        <div class="form-group">
+                            <input id="content" name="content"><br>
+                            <button type="submit" name="submit" class="success button">Dodaj komentar</button>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+</div>
 
