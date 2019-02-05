@@ -18,5 +18,3 @@ foreign key (id_post)
 references post(id) ON DELETE CASCADE
 )engine=InnoDB;
 
-
-insert into post (content) values ('Evo danas pada kiša opet :('), ('Jedem jagode.'),('Jedesdfm jagode.');

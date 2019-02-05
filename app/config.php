@@ -1,12 +1,12 @@
 <?php
 
 return [
-    'url' => 'http://localhost/InchooPHPAkademijaZ6/',
+    'url' => 'http://polaznik16mvc.inchoo4u.net/',
     'mode'  => 'development',
     "db"=>[
         "host"=>"localhost",
-        "name"=>"social_network",
-        "user"=>"root",
-        "password"=>"kruno031031"
+        "name"=>"polaznik16_mvc",
+        "user"=>"polaznik16",
+        "password"=>"Inc00PAk."
     ]
 ];
